@@ -39,6 +39,8 @@ public class TransactionGeneratorServiceAction extends AbstractTransactionGenera
 
     log.info("generateTransaction: {}", topicTransaction);
 
-    return effects().reply(topicTransaction);
+    var metadata = actionContext().metadata().set("ce-subject", request.getTransactionId());
+    return effects()
+        .reply(topicTransaction, metadata);
   }
 }
